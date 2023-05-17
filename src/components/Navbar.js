@@ -1,27 +1,13 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import styles from './Styles/navbar.module.css';
+import { globalContext } from './Context/Context';
 
-const Navbar = () => {
-  const [data, setData] = useState([]);
-  const [title, setTitle] = useState('');
-  const getData = async () => {
-    try {
-      const response = await fetch(`https://dummyjson.com/products`);
-      const result = await response.json();
-      setData(result.products);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
+const Navbar = (props) => {
+  const { props.data, props.}
   return (
     <div className={styles.Navbar}>
-      {data.map((product, index) => {
+      {props.data.map((product, index) => {
         if (index % 5 === 0) {
           return (
             <div className={styles.Category} key={index}>
@@ -34,20 +20,14 @@ const Navbar = () => {
         type="text"
         className={styles.Search}
         placeholder="Search"
-        value={title}
+        value={search}
         onChange={e => {
-          setTitle(e.target.value);
-          setData(
-            data.filter(product => {
-              if (product.title === title) {
-                return true;
-              }
-              return false;
-            })
-          );
-          console.log(data);
+          setSearch(e.target.value);
         }}
       />
+      <button onClick={
+        () => setSendDataSearch(`search?q=${search}`)
+      }>Search</button>
     </div>
   );
 };
