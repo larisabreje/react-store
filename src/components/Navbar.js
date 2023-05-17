@@ -1,13 +1,16 @@
 import React from 'react';
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import styles from './Styles/navbar.module.css';
 import { globalContext } from './Context/Context';
 
-const Navbar = (props) => {
-  const { props.data, props.}
+const Navbar = () => {
+  const { currentData, inputSearch, dataSearch } = useContext(globalContext);
+  const [data] = currentData;
+  const [search, setSearch] = inputSearch;
+  const [, setSendDataSearch] = dataSearch;
   return (
     <div className={styles.Navbar}>
-      {props.data.map((product, index) => {
+      {data.map((product, index) => {
         if (index % 5 === 0) {
           return (
             <div className={styles.Category} key={index}>
@@ -25,9 +28,9 @@ const Navbar = (props) => {
           setSearch(e.target.value);
         }}
       />
-      <button onClick={
-        () => setSendDataSearch(`search?q=${search}`)
-      }>Search</button>
+      <button onClick={() => setSendDataSearch(`/search?q=${search}`)}>
+        Search
+      </button>
     </div>
   );
 };
